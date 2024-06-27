@@ -38,6 +38,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 // {"model": "mannix/defog-llama3-sqlcoder-8b", "prompt": schema, "stream": false}));
                 {"prompt": text}));
         if (res.statusCode == 200) {
+          // ignore: avoid_print
           print('success');
           print(res.body);
           setState(() {
@@ -49,6 +50,7 @@ class _ChatScreenState extends State<ChatScreen> {
         }
       }
     } on Exception {
+      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("Some error occurred, please try again!")));
     }
