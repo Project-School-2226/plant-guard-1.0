@@ -39,7 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 {"prompt": text}));
         if (res.statusCode == 200) {
           // ignore: avoid_print
-          print('success');
+          // print('success');
           print(res.body);
           setState(() {
             isTyping = false;
