@@ -43,7 +43,7 @@ class _ChatScreenState extends State<ChatScreen> {
           print(res.body);
           setState(() {
             isTyping = false;
-            msgs.insert(0, Message(false, res.body.toString() ));
+            msgs.insert(0, Message(false, res.body.toString()));
           });
           scrollController.animateTo(0.0,
               duration: const Duration(seconds: 1), curve: Curves.easeOut);
@@ -97,7 +97,7 @@ class _ChatScreenState extends State<ChatScreen> {
                               isSender: msgs[index].isSender,
                               color: msgs[index].isSender
                                   ? Colors.blue.shade100
-                                  : Colors.grey.shade200,
+                                  : Colors.green.shade200,
                             ));
                 }),
           ),
@@ -137,7 +137,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Colors.green,
                       borderRadius: BorderRadius.circular(30)),
                   child: const Icon(
                     Icons.send,
