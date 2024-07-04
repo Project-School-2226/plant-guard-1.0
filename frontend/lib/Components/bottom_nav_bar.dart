@@ -14,18 +14,21 @@ class BottomNavBar extends StatelessWidget {
         color: Colors.black,
         activeColor: Colors.black,
         tabActiveBorder: Border.all(color: Colors.white),
-        tabBackgroundColor: Colors.grey.shade100,
+        tabBackgroundColor: Color.fromARGB(255, 91, 187, 94),
         mainAxisAlignment: MainAxisAlignment.center,
         tabBorderRadius: 16,
+        padding: EdgeInsets.symmetric(
+            horizontal: 13, vertical: 14), // Reduced padding
+        gap: 8,
         onTabChange: (value) => onTabChange!(value),
-        tabs: const[
+        tabs: const [
           GButton(
             icon: Icons.home,
             text: 'Home',
           ),
           GButton(
             icon: Icons.chat,
-            text: 'Chat Bot',
+            text: 'ChatBot',
           ),
         ],
       ),
