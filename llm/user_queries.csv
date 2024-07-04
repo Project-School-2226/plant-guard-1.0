@@ -1,0 +1,149 @@
+question,class
+"What are some good fertilizers for rice cultivation?",plant specific
+"When is the best time to plant rice?",plant specific
+"How much water does rice need during its growing season?",plant specific
+"What are the signs of nitrogen deficiency in rice plants?",plant specific
+"What is the ideal temperature range for rice growth?",plant specific
+"What are the nutrient requirements for maize?",plant specific
+"How do I protect maize plants from pests?",plant specific
+"When should I harvest maize?",plant specific
+"What is the optimal pH level for maize cultivation?",plant specific
+"How can I improve soil fertility for maize?",plant specific
+"What are the ideal growing conditions for chickpeas?",plant specific
+"How much water do chickpea plants need?",plant specific
+"What are the signs of diseases in chickpea plants?",plant specific
+"When is the best time to apply fertilizer to chickpeas?",plant specific
+"What is the recommended spacing for planting chickpea seeds?",plant specific
+"What are the water requirements for kidney beans?",plant specific
+"How do I prevent pests from attacking kidney bean plants?",plant specific
+"What is the nitrogen fixation process in kidney beans?",plant specific
+"What are the symptoms of nutrient deficiency in kidney bean plants?",plant specific
+"What is the optimal temperature for kidney bean growth?",plant specific
+"What are the ideal soil conditions for pigeon peas?",plant specific
+"How do I prune pigeon pea plants?",plant specific
+"What are the benefits of intercropping with pigeon peas?",plant specific
+"When should I harvest pigeon peas?",plant specific
+"What are the nitrogen-fixing properties of pigeon peas?",plant specific
+"What are the pest management strategies for moth beans?",plant specific
+"How do I control weeds in moth bean fields?",plant specific
+"What are the nutritional requirements during flowering in moth beans?",plant specific
+"What are the signs of overwatering in moth bean plants?",plant specific
+"What is the preferred pH level for growing moth beans?",plant specific
+"What are the water requirements for mung beans?",plant specific
+"How do I support mung bean plants?",plant specific
+"What are the common diseases affecting mung beans?",plant specific
+"What is the optimum temperature range for mung bean cultivation?",plant specific
+"How can I enhance nitrogen fixation in mung beans?",plant specific
+"What are the soil preparation techniques for black gram cultivation?",plant specific
+"How do I protect black gram plants from fungal diseases?",plant specific
+"What are the signs of nutrient deficiency in black gram plants?",plant specific
+"When should I apply fertilizer to black gram crops?",plant specific
+"What is the best time to sow black gram seeds?",plant specific
+"What are the best practices for lentil crop rotation?",plant specific
+"How do I manage lentil pests and diseases?",plant specific
+"What are the signs of stress in lentil plants?",plant specific
+"What is the ideal spacing for planting lentil seeds?",plant specific
+"How can I improve lentil yield?",plant specific
+"What are the nutrient requirements for pomegranate trees?",plant specific
+"How do I prune pomegranate trees for better fruit production?",plant specific
+"When is the best time to harvest pomegranates?",plant specific
+"What are the signs of diseases in pomegranate trees?",plant specific
+"What is the ideal pH level for pomegranate cultivation?",plant specific
+"What are the water requirements for banana plants?",plant specific
+"How do I protect banana plants from wind damage?",plant specific
+"What are the signs of potassium deficiency in banana plants?",plant specific
+"When should I apply fertilizer to banana trees?",plant specific
+"What is the ideal temperature range for banana growth?",plant specific
+"What are the pruning techniques for mango trees?",plant specific
+"How do I control mango pests and diseases?",plant specific
+"What are the signs of nutrient deficiency in mango trees?",plant specific
+"When is the best time to harvest mangoes?",plant specific
+"What is the optimal humidity level for mango cultivation?",plant specific
+"What are the soil requirements for grapevines?",plant specific
+"How do I train grapevines for optimal fruit production?",plant specific
+"What are the signs of grapevine diseases?",plant specific
+"When is the best time to prune grapevines?",plant specific
+"What is the ideal trellising system for grape cultivation?",plant specific
+"What are the watermelon’s water requirements during its growth stages?",plant specific
+"How do I prevent pests from damaging watermelon vines?",plant specific
+"What are the signs of nutrient deficiency in watermelon plants?",plant specific
+"When should I harvest watermelons?",plant specific
+"What is the ideal soil pH for watermelon cultivation?",plant specific
+"What are the ideal conditions for growing muskmelons?",plant specific
+"How do I support muskmelon vines?",plant specific
+"What are the signs of diseases in muskmelon plants?",plant specific
+"When is the best time to fertilize muskmelons?",plant specific
+"What is the recommended spacing for planting muskmelon seeds?",plant specific
+"What are the pruning techniques for apple trees?",plant specific
+"How do I prevent apple scab and other diseases?",plant specific
+"What are the signs of nutrient deficiency in apple trees?",plant specific
+"When is the best time to thin apple fruits?",plant specific
+"What is the ideal chilling requirement for apple trees?",plant specific
+"What are the water requirements for orange trees?",plant specific
+"How do I protect orange trees from frost damage?",plant specific
+"What are the signs of citrus greening disease in orange trees?",plant specific
+"When is the best time to prune orange trees?",plant specific
+"What is the optimal temperature range for orange tree growth?",plant specific
+"What are the nutrient requirements for papaya plants?",plant specific
+"How do I support papaya plants?",plant specific
+"What are the signs of diseases in papaya plants?",plant specific
+"When should I harvest papayas?",plant specific
+"What is the ideal temperature range for papaya cultivation?",plant specific
+"What are the soil requirements for coconut palms?",plant specific
+"How do I prevent coconut tree diseases?",plant specific
+"What are the signs of nutrient deficiency in coconut palms?",plant specific
+"When is the best time to harvest coconuts?",plant specific
+"What is the ideal humidity level for coconut cultivation?",plant specific
+"What are the water requirements for cotton plants?",plant specific
+"How do I control pests in cotton fields?",plant specific
+"What are the signs of nutrient deficiency in cotton plants?",plant specific
+"When should I apply fertilizer to cotton crops?",plant specific
+"What is the optimal temperature range for cotton growth?",plant specific
+"What are the soil requirements for jute cultivation?",plant specific
+"How do I manage weeds in jute fields?",plant specific
+"What are the signs of diseases in jute plants?",plant specific
+"When is the best time to harvest jute?",plant specific
+"What is the ideal pH level for jute cultivation?",plant specific
+"What are the ideal growing conditions for coffee plants?",plant specific
+"How do I protect coffee plants from pests?",plant specific
+"What are the signs of diseases in coffee plants?",plant specific
+"When is the best time to harvest coffee cherries?",plant specific
+"What is the recommended altitude for coffee cultivation?",plant specific
+"What is the current temperature in my rice field?",real time sensor data
+"What is the humidity level in my rice paddy?",real time sensor data
+"Can you provide the nitrogen level in my rice field soil?",real time sensor data
+"What is the phosphorus content in my rice plantation soil?",real time sensor data
+"What is the potassium level in my rice paddies?",real time sensor data
+"Are my rice plants receiving enough sunlight for photosynthesis?",real time sensor data
+"How moist is the soil in my flooded rice field?",real time sensor data
+"Is the pH level of my rice field suitable for optimal growth?",real time sensor data
+"What is the current temperature in my maize field?",real time sensor data
+"What is the humidity level in my maize plantation?",real time sensor data
+"Can you provide the nitrogen level in my maize field soil?",real time sensor data
+"What is the phosphorus content in my maize plantation soil?",real time sensor data
+"What is the potassium level in my maize paddies?",real time sensor data
+"Are my maize plants receiving enough sunlight for photosynthesis?",real time sensor data
+"How moist is the soil in my maize field?",real time sensor data
+"Is the pH level of my maize field suitable for optimal growth?",real time sensor data
+"What is the current temperature in my chickpea field?",real time sensor data
+"What is the humidity level in my chickpea plantation?",real time sensor data
+"Can you provide the nitrogen level in my chickpea field soil?",real time sensor data
+"What is the phosphorus content in my chickpea plantation soil?",real time sensor data
+"What is the potassium level in my chickpea paddies?",real time sensor data
+"Are my chickpea plants receiving enough sunlight for photosynthesis?",real time sensor data
+"How moist is the soil in my chickpea field?",real time sensor data
+"Is the pH level of my chickpea field suitable for optimal growth?",real time sensor data
+"What is the current temperature in my kidney bean field?",real time sensor data
+"What is the humidity level in my kidney bean plantation?",real time sensor data
+"What is the current temperature of my crop?",real time sensor data
+"What is the temperature of my plant?",real time sensor data
+"What is the current phosphorus of my crop?",real time sensor data
+"What is the current phosphorus level of my crop?",real time sensor data
+"What is the current nitrogen level of my crop?",real time sensor data
+"How are you doing today?",real time sensor data
+"Can you provide the nitrogen level in my kidney bean field soil?",real time sensor data
+"What is the phosphorus content in my kidney bean plantation soil?",real time sensor data
+"What is the potassium level in my kidney bean paddies?",real time sensor data
+"Are my kidney bean plants receiving enough sunlight for photosynthesis?",real time sensor data
+"How moist is the soil in my kidney bean field?",real time sensor data
+"Is the pH level of my kidney bean field suitable for optimal growth?",real time sensor
