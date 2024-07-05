@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:plant_guard/pages/chat_page.dart';
 import 'package:plant_guard/pages/intro_page.dart';
 
 void main() async {

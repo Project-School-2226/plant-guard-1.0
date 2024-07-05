@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:plant_guard/pages/chat_page.dart';
 import 'package:plant_guard/pages/intro_page.dart';
 import 'package:plant_guard/pages/profile_page.dart';
 import 'package:plant_guard/pages/settings_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -12,9 +13,34 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
+  String backendMessage = "Loading...";
+
+  @override
+  void initState() {
+    super.initState();
+    fetchMessage();
+  }
+
+  Future<void> fetchMessage() async {
+    final response = await http.get(Uri.parse("http://localhost:5000/data"));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      setState(() {
+        backendMessage = data['message']; // Assuming the message is in a field called 'message'
+      });
+    } else {
+      setState(() {
+        backendMessage = "Failed to load message";
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Center(
+        child: Text(backendMessage), // Display the message from the backend
+      ),
       appBar: AppBar(
         title: Text('Dashboard', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
