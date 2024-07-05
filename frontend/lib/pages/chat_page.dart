@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:plant_guard/message.dart';
+import 'package:plant_guard/Models/message.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
