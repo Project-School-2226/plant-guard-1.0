@@ -16,24 +16,24 @@ class _DashboardState extends State<Dashboard> {
   String backendMessage = "Loading...";
 
   @override
-  void initState() {
-    super.initState();
-    fetchMessage();
-  }
+  // void initState() {
+  //   super.initState();
+  //   fetchMessage();
+  // }
 
-  Future<void> fetchMessage() async {
-    final response = await http.get(Uri.parse("http://localhost:5000/data"));
-    if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      setState(() {
-        backendMessage = data['message']; // Assuming the message is in a field called 'message'
-      });
-    } else {
-      setState(() {
-        backendMessage = "Failed to load message";
-      });
-    }
-  }
+  // Future<void> fetchMessage() async {
+  //   final response = await http.get(Uri.parse("http://localhost:5000/data"));
+  //   if (response.statusCode == 200) {
+  //     final data = jsonDecode(response.body);
+  //     setState(() {
+  //       backendMessage = data['message']; // Assuming the message is in a field called 'message'
+  //     });
+  //   } else {
+  //     setState(() {
+  //       backendMessage = "Failed to load message";
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
