@@ -67,7 +67,7 @@ app.get('/get-from-esp32', (req, res) => {
 });
 
 const PORT = process.env.PORT || 3000;
-const IP_ADDRESS = '172.168.1.185';
+const IP_ADDRESS = '172.168.0.226';
 app.listen(PORT , IP_ADDRESS , () => {
   console.log(`Server is running on http://${IP_ADDRESS}:${PORT}`);
 });

@@ -30,21 +30,32 @@ class _ChatScreenState extends State<ChatScreen> {
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
         var res = await http.post(
-            Uri.parse("https://susheelt-plantguardllm.hf.space/llm_on_cpu"),
+            Uri.parse("https://cb81-183-82-97-138.ngrok-free.app/query"),
             headers: {
               "Content-Type": "application/json",
             },
             body: jsonEncode(
                 // {"model": "mannix/defog-llama3-sqlcoder-8b", "prompt": schema, "stream": false}));
-                {"prompt": text}));
+                {"query_text": text}));
         if (res.statusCode == 200) {
-          // ignore: avoid_print
-          // print('success');
-          print(res.body);
+          var responseBody =
+              jsonDecode(res.body); // Parse the JSON response body
+          var responseText =
+              responseBody['response']; // Extract the "response" value
+
+          print(
+              responseText); // For debugging, you can print the extracted response
+
           setState(() {
             isTyping = false;
-            msgs.insert(0, Message(false, res.body.toString()));
+            msgs.insert(
+                0,
+                Message(
+                    false,
+                    responseText
+                        .toString())); // Use the extracted "response" value here
           });
+
           scrollController.animateTo(0.0,
               duration: const Duration(seconds: 1), curve: Curves.easeOut);
         }
@@ -114,16 +125,21 @@ class _ChatScreenState extends State<ChatScreen> {
                         borderRadius: BorderRadius.circular(10)),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: TextField(
-                        controller: controller,
-                        textCapitalization: TextCapitalization.sentences,
-                        onSubmitted: (value) {
-                          sendMsg();
-                        },
-                        textInputAction: TextInputAction.send,
-                        showCursor: true,
-                        decoration: const InputDecoration(
-                            border: InputBorder.none, hintText: "Enter text"),
+                      child: SingleChildScrollView(
+                        reverse: true,
+                        child: TextField(
+                          controller: controller,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          textCapitalization: TextCapitalization.sentences,
+                          onSubmitted: (value) {
+                            sendMsg();
+                          },
+                          textInputAction: TextInputAction.send,
+                          showCursor: true,
+                          decoration: const InputDecoration(
+                              border: InputBorder.none, hintText: "Enter text"),
+                        ),
                       ),
                     ),
                   ),
