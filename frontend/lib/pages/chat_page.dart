@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_guard/Models/message.dart';
 
@@ -114,12 +115,11 @@ class _ChatScreenState extends State<ChatScreen> {
           ),
           Row(
             children: [
-              Expanded(
+              Flexible(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     width: double.infinity,
-                    height: 40,
                     decoration: BoxDecoration(
                         color: Colors.grey[200],
                         borderRadius: BorderRadius.circular(10)),
@@ -127,18 +127,27 @@ class _ChatScreenState extends State<ChatScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 8),
                       child: SingleChildScrollView(
                         reverse: true,
-                        child: TextField(
-                          controller: controller,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          textCapitalization: TextCapitalization.sentences,
-                          onSubmitted: (value) {
-                            sendMsg();
-                          },
-                          textInputAction: TextInputAction.send,
-                          showCursor: true,
-                          decoration: const InputDecoration(
-                              border: InputBorder.none, hintText: "Enter text"),
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight:
+                                40, // Minimum height for the TextField container
+                            // You can also specify maxHeight if you want
+                          ),
+                          child: TextField(
+                            controller:
+                                controller, // Define this controller in your widget state
+                            keyboardType: TextInputType.multiline,
+                            maxLines: null, // Allows for unlimited lines
+                            minLines:
+                                1, // Adjust this to change the initial size
+                            decoration: InputDecoration(
+                              border: InputBorder
+                                  .none, // Removes underline from the TextField
+                              hintText:
+                                  "Enter text", // Optional: Adds a placeholder
+                            ),
+                            // No need to change other properties unless necessary
+                          ),
                         ),
                       ),
                     ),
