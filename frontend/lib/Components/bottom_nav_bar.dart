@@ -30,6 +30,10 @@ class BottomNavBar extends StatelessWidget {
             icon: Icons.chat,
             text: 'ChatBot',
           ),
+          GButton(
+            icon: Icons.info,
+            text: 'Trivia',
+          )
         ],
       ),
     );
