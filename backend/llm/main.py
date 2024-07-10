@@ -46,7 +46,7 @@ def predict():
     # Check if the question is a greeting
     if question in greetings:
         response_message = random.choice(responses)  # Select a random response
-        return jsonify({'message': response_message})
+        return jsonify({'prediction': response_message})
     else:
         loaded_model = joblib.load('model.joblib')
         loaded_vectorizer = joblib.load('vectorizer.joblib')
@@ -59,12 +59,15 @@ def predict():
 
         if max_probability < confidence_threshold:
             response_message = 'Ask questions related to your plant'
-            return jsonify({'message': response_message})
+            return jsonify({'prediction': response_message})
         else:
             predicted_class = loaded_model.classes_[probabilities[0].argmax()]
 
-    return jsonify({'prediction': predicted_class, 'confidence': max_probability})
+    return jsonify({'prediction': predicted_class, 'confidence': max_probability,'status':200})
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+# WAN: 10.136.61.223
+# LAN: 192.168.0.1
