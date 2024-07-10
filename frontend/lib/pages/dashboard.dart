@@ -14,32 +14,28 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   String backendMessage = "Loading...";
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchMessage();
-  // }
-
-  // Future<void> fetchMessage() async {
-  //   final response = await http.get(Uri.parse("http://localhost:5000/data"));
-  //   if (response.statusCode == 200) {
-  //     final data = jsonDecode(response.body);
-  //     setState(() {
-  //       backendMessage = data['message']; // Assuming the message is in a field called 'message'
-  //     });
-  //   } else {
-  //     setState(() {
-  //       backendMessage = "Failed to load message";
-  //     });
-  //   }
-  // }
+  double temperature = 0.0;
+  double humidity = 0.0;
+  double soilMoisture = 0.0;
+  Map<String, double> npkValues = {'N': 0.0, 'P': 0.0, 'K': 0.0};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(backendMessage), // Display the message from the backend
+      body: GridView.count(
+        crossAxisCount: 2, // Display 2 items per row
+        childAspectRatio: 1.0, // Makes each item square-shaped
+        padding: EdgeInsets.all(8.0),
+        mainAxisSpacing: 8.0, // Spacing between items vertically
+        crossAxisSpacing: 8.0, // Spacing between items horizontally
+        children: <Widget>[
+          _buildValueTile('Temperature', '$temperature°C'),
+          _buildValueTile('Humidity', '$humidity%'),
+          _buildValueTile('Soil Moisture', '$soilMoisture%'),
+          _buildValueTile('Nitrogen', '${npkValues['N']}'),
+          _buildValueTile('Phosphorous', '${npkValues['P']}'),
+          _buildValueTile('Potassium', '${npkValues['K']}'),
+        ],
       ),
       appBar: AppBar(
         title: Text('Dashboard', style: TextStyle(color: Colors.black)),
@@ -138,4 +134,32 @@ class _DashboardState extends State<Dashboard> {
       ),
     );
   }
+}
+
+Widget _buildValueTile(String title, String value) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Color(0xFF5ada86),
+      borderRadius: BorderRadius.circular(8.0),
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.2),
+          spreadRadius: 2,
+          blurRadius: 4,
+          offset: Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(title,
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+          SizedBox(height: 8), // Provides spacing between the title and value
+          Text(value, style: TextStyle(fontSize: 20)),
+        ],
+      ),
+    ),
+  );
 }

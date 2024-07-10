@@ -11,11 +11,12 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: GNav(
-        color: Colors.black,
+        backgroundColor: Color.fromARGB(255, 74, 73, 73),
+        color: Colors.white,
         activeColor: Colors.black,
         tabActiveBorder: Border.all(color: Colors.white),
-        tabBackgroundColor: Color.fromARGB(255, 91, 187, 94),
-        mainAxisAlignment: MainAxisAlignment.center,
+        tabBackgroundColor: Color(0xFF5ada86),
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         tabBorderRadius: 16,
         padding: EdgeInsets.symmetric(
             horizontal: 13, vertical: 14), // Reduced padding
@@ -29,6 +30,14 @@ class BottomNavBar extends StatelessWidget {
           GButton(
             icon: Icons.chat,
             text: 'ChatBot',
+          ),
+          GButton(
+            icon: Icons.settings,
+            text: 'Settings',
+          ),
+          GButton(
+            icon: Icons.account_circle,
+            text: 'Profile',
           ),
         ],
       ),
