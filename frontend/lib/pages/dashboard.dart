@@ -42,7 +42,7 @@ class _DashboardState extends State<Dashboard> {
         child: Text(backendMessage), // Display the message from the backend
       ),
       appBar: AppBar(
-        title: Text('Dashboard', style: TextStyle(color: Colors.black)),
+        title: const Text('Dashboard', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Builder(
@@ -61,21 +61,21 @@ class _DashboardState extends State<Dashboard> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.account_circle, color: Colors.black),
+            icon: const Icon(Icons.account_circle, color: Colors.black),
             onPressed: () {
               // Navigate to the profile page
               Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        ProfilePage()), // Replace ProfilePage with your profile page widget
+                        const ProfilePage()), // Replace ProfilePage with your profile page widget
               );
             },
           ),
         ],
       ),
       drawer: Drawer(
-        backgroundColor: Color.fromARGB(255, 62, 38, 33),
+        backgroundColor: const Color.fromARGB(255, 62, 38, 33),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -86,8 +86,8 @@ class _DashboardState extends State<Dashboard> {
                   'lib/images/plantLogo.png',
                   width: 150,
                 )),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
                 ),
                 //other pages
 
@@ -96,7 +96,7 @@ class _DashboardState extends State<Dashboard> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => SettingsPage(),
+                        builder: (context) => const SettingsPage(),
                       ),
                     );
                   },
