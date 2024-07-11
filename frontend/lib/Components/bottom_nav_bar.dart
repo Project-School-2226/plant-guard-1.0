@@ -14,7 +14,7 @@ class BottomNavBar extends StatelessWidget {
       child: Container(
         height: 60, // Adjust the height to fit your design
         child: GNav(
-          backgroundColor: Color.fromARGB(255, 74, 73, 73),
+          backgroundColor: Color.fromARGB(255, 152, 162, 152),
           color: Colors.black,
           activeColor: Colors.black,
           tabActiveBorder: Border.all(color: Colors.white),

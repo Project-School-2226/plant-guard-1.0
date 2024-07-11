@@ -19,6 +19,7 @@ class _ChatScreenState extends State<ChatScreen> {
   ScrollController scrollController = ScrollController();
   List<Message> msgs = [];
   bool isTyping = false;
+  bool isBotTyping = false;
   void sendMsg() async {
     String text = controller.text;
     controller.clear();
@@ -27,6 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
         setState(() {
           msgs.insert(0, Message(true, text));
           isTyping = true;
+          isBotTyping = true;
         });
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
@@ -47,6 +49,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
           setState(() {
             isTyping = false;
+            isBotTyping = false;
             msgs.insert(
                 0,
                 Message(
@@ -57,12 +60,28 @@ class _ChatScreenState extends State<ChatScreen> {
 
           scrollController.animateTo(0.0,
               duration: const Duration(seconds: 1), curve: Curves.easeOut);
+        } else {
+          setState(() {
+            isTyping = false;
+            isBotTyping = false; // Hide typing indicator
+            msgs.insert(
+              0,
+              Message(
+                  false, "Oops! Something went wrong. Please try again later."),
+            );
+          });
         }
       }
-    } on Exception {
-      // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Some error occurred, please try again!")));
+    } catch (e) {
+      // Handle errors (e.g., no internet connection)
+      setState(() {
+        isTyping = false;
+        isBotTyping = false; // Hide typing indicator
+        msgs.insert(
+          0,
+          Message(false, "Oops! Something went wrong. Please try again later."),
+        );
+      });
     }
   }
 
@@ -131,7 +150,7 @@ class _ChatScreenState extends State<ChatScreen> {
                                 40, // Minimum height for the TextField container
                             // You can also specify maxHeight if you want
                             maxHeight: MediaQuery.of(context).size.height *
-                                0.4, // 40% of screen height
+                                0.2, // 40% of screen height
                           ),
                           child: TextField(
                             controller:
