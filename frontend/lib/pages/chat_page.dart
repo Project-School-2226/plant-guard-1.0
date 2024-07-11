@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:flutter/material.dart';
@@ -20,8 +22,6 @@ class _ChatScreenState extends State<ChatScreen> {
   void sendMsg() async {
     String text = controller.text;
     controller.clear();
-    // String schema =
-    // "### Instructions: Your task is to convert a question into a SQL query, given a Postgres database schema. Adhere to these rules: - *Deliberately go through the question and database schema word by word* to appropriately answer the question - *Use Table Aliases* to prevent ambiguity. For example, SELECT table1.col1, table2.col1 FROM table1 JOIN table2 ON table1.id = table2.id. - When creating a ratio, always cast the numerator as float - if the question cannot be answered given the database schema, return 'I do not know' ### Input: Generate a SQL query that answers the question $text. This query will run on a database whose schema is represented in this string: CREATE TABLE products ( product_id INTEGER PRIMARY KEY, -- Unique ID for each product name VARCHAR(50), -- Name of the product price DECIMAL(10,2), -- Price of each unit of the product quantity INTEGER -- Current quantity in stock ); CREATE TABLE customers ( customer_id INTEGER PRIMARY KEY, -- Unique ID for each customer name VARCHAR(50), -- Name of the customer address VARCHAR(100) -- Mailing address of the customer ); CREATE TABLE salespeople ( salesperson_id INTEGER PRIMARY KEY, -- Unique ID for each salesperson name VARCHAR(50), -- Name of the salesperson region VARCHAR(50) -- Geographic sales region ); CREATE TABLE sales ( sale_id INTEGER PRIMARY KEY, -- Unique ID for each sale product_id INTEGER, -- ID of product sold customer_id INTEGER, -- ID of customer who made purchase salesperson_id INTEGER, -- ID of salesperson who made the sale sale_date DATE, -- Date the sale occurred quantity INTEGER -- Quantity of product sold ); CREATE TABLE product_suppliers ( supplier_id INTEGER PRIMARY KEY, -- Unique ID for each supplier product_id INTEGER, -- Product ID supplied supply_price DECIMAL(10,2) -- Unit price charged by supplier ); -- sales.product_id can be joined with products.product_id -- sales.customer_id can be joined with customers.customer_id -- sales.salesperson_id can be joined with salespeople.salesperson_id -- product_suppliers.product_id can be joined with products.product_id ### Response: Based on your instructions, here is the SQL query I have generated to answer the question $text: sql";
     try {
       if (text.isNotEmpty) {
         setState(() {
@@ -35,9 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
             headers: {
               "Content-Type": "application/json",
             },
-            body: jsonEncode(
-                // {"model": "mannix/defog-llama3-sqlcoder-8b", "prompt": schema, "stream": false}));
-                {"query_text": text}));
+            body: jsonEncode({"query_text": text}));
         if (res.statusCode == 200) {
           var responseBody =
               jsonDecode(res.body); // Parse the JSON response body
@@ -132,6 +130,8 @@ class _ChatScreenState extends State<ChatScreen> {
                             minHeight:
                                 40, // Minimum height for the TextField container
                             // You can also specify maxHeight if you want
+                            maxHeight: MediaQuery.of(context).size.height *
+                                0.4, // 40% of screen height
                           ),
                           child: TextField(
                             controller:
