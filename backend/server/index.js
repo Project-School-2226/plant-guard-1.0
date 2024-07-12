@@ -11,7 +11,7 @@ const { connectToDatabase, pool } = require('./database/db');
 const sensorDataRouter = require('./routes/sensors_data');
 const userQueryHandlerRouter = require('./routes/user_query_handler');
 
-const { connectToDatabase, pool } = require('./database/db');
+
 
 
 // Middleware to parse incoming request bodies
