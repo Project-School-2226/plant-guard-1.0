@@ -55,7 +55,7 @@ def predict():
         max_probability = max(probabilities[0])
 
         # Define a threshold for classification confidence
-        confidence_threshold = 0.5  # Adjust based on your model and needs
+        confidence_threshold = 0.6  # Adjust based on your model and needs
 
         if max_probability < confidence_threshold:
             response_message = 'Ask questions related to your plant'

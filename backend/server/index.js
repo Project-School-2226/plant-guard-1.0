@@ -6,6 +6,7 @@ const http = require('http');
 const mysql = require('mysql');
 const cors = require('cors');
 const { default: axios } = require('axios');
+const { connectToDatabase, pool } = require('./database/db');
 
 const sensorDataRouter = require('./routes/sensors_data');
 const userQueryHandlerRouter = require('./routes/user_query_handler');

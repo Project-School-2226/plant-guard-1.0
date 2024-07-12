@@ -1,6 +1,8 @@
 const express  = require('express');
 const router = express.Router();
 const axios = require('axios');
+const { getFromEsp32 } = require('../utils/sensorFunctions');
+
 
 router.post('/send-query-response', (req,res) => { 
     const question = req.body.question;
