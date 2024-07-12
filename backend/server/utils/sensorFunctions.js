@@ -1,6 +1,7 @@
-function getFromEsp32() {
+const http = require('http');
+function getFromEsp32(req,res) {
     const options = {
-        hostname: '172.168.3.42',
+        hostname: '172.168.0.135',
         port: 30000,
         path: '/get-data',
         method: 'GET'
@@ -34,3 +35,4 @@ function getFromEsp32() {
 
 }
 
+module.exports.getFromEsp32 = getFromEsp32;

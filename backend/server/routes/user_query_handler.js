@@ -8,6 +8,10 @@ router.post('/send-query-response', (req,res) => {
       .then((response) => { 
         if(response.data.prediction == 'real time sensor data') { 
           res.status(200).send('fetching real time data');
+        } 
+        else{
+          res.status(200).send(response.data);
+        
         }
       }) .catch((error) => { 
         res.status(500).send('Error getting response from model');
