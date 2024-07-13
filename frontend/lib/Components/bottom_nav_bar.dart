@@ -39,6 +39,10 @@ class BottomNavBar extends StatelessWidget {
               icon: Icons.person,
               text: 'Profile',
             ),
+            GButton(
+            icon: Icons.info,
+            text: 'Trivia',
+            )
           ],
           // Your GNav items here
         ),

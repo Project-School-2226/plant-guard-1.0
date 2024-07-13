@@ -78,7 +78,7 @@ class PlantsTrivia extends StatelessWidget {
                       color: Colors.grey.withOpacity(0.5), // Shadow color with some transparency
                       spreadRadius: 2, // Extent of shadow spread
                       blurRadius: 15, // How blurry the shadow should be
-                      offset: Offset(0, 3), // Horizontal and vertical offset of shadow
+                      offset: const Offset(0, 3), // Horizontal and vertical offset of shadow
                     ),
                   ],
                 ),
@@ -114,9 +114,6 @@ class PlantsTrivia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Plants Trivia"),
-      ),
       body: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Two cards per row
