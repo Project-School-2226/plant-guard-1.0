@@ -3,7 +3,7 @@ import 'package:plant_guard/pages/intro_page.dart';
 import 'package:plant_guard/pages/settings_page.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,8 @@ class CustomDrawer extends StatelessWidget {
                 'lib/images/PlantGuard_logo.png',
                 width: 210,
               )),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              const Padding(
+                padding: EdgeInsets.all(8.0),
               ),
               //other pages
 
@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SettingsPage(),
+                      builder: (context) => const SettingsPage(),
                     ),
                   );
                 },

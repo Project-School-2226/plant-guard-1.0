@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:plant_guard/Components/dashboard_drawer.dart';
 import 'package:plant_guard/pages/chat_page.dart';
 import 'package:plant_guard/pages/dashboard.dart';
 import 'package:plant_guard/pages/profile_page.dart';
 import 'package:plant_guard/pages/settings_page.dart';
+import 'package:plant_guard/pages/plantstrivia.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -17,6 +19,7 @@ class _HomePageState extends State<HomePage> {
     'PlantGuard',
     'Settings',
     'Profile',
+    'Trivia'
   ];
 
   @override
@@ -39,10 +42,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         title: selectedIndex == 0
             ? ShaderMask(
-                shaderCallback: (bounds) => LinearGradient(
+                shaderCallback: (bounds) => const LinearGradient(
                   colors: [
                     Color(0xFF1D9621), // Color(0xFF1D9621
-                    const Color.fromARGB(255, 29, 150, 33),
+                    Color.fromARGB(255, 29, 150, 33),
                     Colors.black,
                   ], // Define your gradient colors here
                   begin: Alignment.topLeft,
@@ -50,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                 ).createShader(bounds),
                 child: Text(
                   pageTitles[selectedIndex],
-                  style: TextStyle(
+                  style: const TextStyle(
                     // Text color must be white (or any other color) to ensure the gradient is visible
                     color: Colors.white,
                     fontSize: 26,
@@ -74,9 +77,10 @@ class _HomePageState extends State<HomePage> {
         },
         children: <Widget>[
           // Your page widgets here
-          Dashboard(),
-          SettingsPage(),
-          ProfilePage(),
+          const Dashboard(),
+          const SettingsPage(),
+          const ProfilePage(),
+          PlantsTrivia(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -91,20 +95,21 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.settings), label: 'Settings'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+          BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Trivia'),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => ChatScreen()),
+            MaterialPageRoute(builder: (context) => const ChatScreen()),
           );
         },
-        child: Icon(
+        backgroundColor: Colors.green,
+        child: const Icon(
           Icons.chat,
           color: Colors.black,
-        ),
-        backgroundColor: Colors.green, // Customize your FAB color
+        ), // Customize your FAB color
       ),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.endFloat, // Position of the FAB
