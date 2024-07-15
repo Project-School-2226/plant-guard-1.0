@@ -4,7 +4,6 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -12,7 +11,6 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  Timer? _timer;
   String temperature = "0.0";
   String humidity = "0.0";
   String soilMoisture = "0.0";
@@ -21,19 +19,13 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
-    _loadData();
-    _setupPeriodicRequest();
-  }
-
-  void _setupPeriodicRequest() {
-    const twoMinutes = Duration(minutes: 2);
-    _timer = Timer.periodic(twoMinutes, (Timer t) => fetchData());
+    fetchData();
   }
 
   Future<void> fetchData() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://d355-183-82-97-138.ngrok-free.app/sensors-data/get-from-esp32'));
+          'https://10b3-183-82-97-138.ngrok-free.app/sensors-data/get-from-esp32'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         print(data);
@@ -49,136 +41,105 @@ class _DashboardState extends State<Dashboard> {
           };
         });
         // Save data to SharedPreferences
-        _saveData();
       }
     } catch (e) {
       print(e);
     }
   }
 
-  Future<void> _saveData() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('temperature', temperature);
-    await prefs.setString('humidity', humidity);
-    await prefs.setString(
-        'soilMoisture', soilMoisture); // Assuming you want to save this
-    await prefs.setString('N', npkValues['N']!);
-    await prefs.setString('P', npkValues['P']!);
-    await prefs.setString('K', npkValues['K']!);
-  }
-
-  Future<void> _loadData() async {
-    final prefs = await SharedPreferences.getInstance();
-    setState(() {
-      temperature = prefs.getString('temperature') ?? "0.0";
-      humidity = prefs.getString('humidity') ?? "0.0";
-      soilMoisture = prefs.getString('soilMoisture') ??
-          "0.0"; // Assuming you want to load this
-      npkValues = {
-        'N': prefs.getString('N') ?? "0.0",
-        'P': prefs.getString('P') ?? "0.0",
-        'K': prefs.getString('K') ?? "0.0",
-      };
-    });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GridView.count(
-        crossAxisCount: 2, // Display 2 items per row
-        childAspectRatio: 1.0, // Makes each item square-shaped
-        padding: EdgeInsets.all(8.0),
-        mainAxisSpacing: 8.0, // Spacing between items vertically
-        crossAxisSpacing: 8.0, // Spacing between items horizontally
-        children: <Widget>[
-          _buildValueTile('Temperature', '$temperature°C', 20, 30),
-          _buildValueTile('Humidity', '$humidity%', 50, 100),
-          _buildValueTile('Soil Moisture', '$soilMoisture%', 0, 100),
-          _buildValueTile('Nitrogen', '${npkValues['N']}', 10, 20),
-          _buildValueTile('Phosphorous', '${npkValues['P']}', 5, 10),
-          _buildValueTile('Potassium', '${npkValues['K']}', 2, 10),
-        ],
-      ),
-    );
+        backgroundColor: Colors.blue[50],
+        body: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                DashboardTile(
+                  temperature: temperature,
+                  humidity: humidity,
+                  soilMoisture: soilMoisture,
+                  nitrogen: npkValues['N']!,
+                  phosphorous: npkValues['P']!,
+                  potassium: npkValues['K']!,
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }
 
-Widget _buildValueTile(String title, String value, double low, double high) {
-  double val = double.tryParse(value.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 0.0;
+class DashboardTile extends StatelessWidget {
+  final String temperature;
+  final String humidity;
+  final String soilMoisture;
+  final String nitrogen;
+  final String phosphorous;
+  final String potassium;
 
-  // Step 2: Determine the gradient based on the value
-  LinearGradient gradient;
-  if (val <= low) {
-    // Assuming 20.0 as the low threshold
-    gradient = LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [
-        Colors.red,
-        Colors.red,
-      ],
-    );
-  } else if (val >= high) {
-    // Assuming 80.0 as the high threshold
-    gradient = LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Colors.red, Colors.red],
-    );
-  } else {
-    gradient = LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [Colors.green, Colors.lightGreenAccent],
-    );
-  }
-  return Container(
-    decoration: BoxDecoration(
-      gradient: gradient,
-      borderRadius: BorderRadius.circular(8.0),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.6),
-          spreadRadius: 2,
-          blurRadius: 4,
-          offset: Offset(0, 3),
-        ),
-      ],
-    ),
-    child: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(Icons.trending_up, color: Colors.black), // Example icon
-          SizedBox(height: 5), // Adjust spacing as needed
-          Text(
-            title,
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Color.fromARGB(
-                  255, 31, 30, 30), // Brighter text color for the title
-            ),
-          ),
-          SizedBox(height: 10), // Provides spacing between the title and value
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w500,
-              color: Color.fromARGB(
-                  255, 84, 84, 84), // Slightly dim color for the value
-            ),
+  // Add more parameters as needed
+
+  DashboardTile({
+    Key? key,
+    required this.temperature,
+    required this.humidity,
+    required this.soilMoisture,
+    required this.nitrogen,
+    required this.phosphorous,
+    required this.potassium,
+    // Initialize other parameters here
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Color.fromARGB(255, 174, 244, 198),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3),
           ),
         ],
       ),
-    ),
-  );
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            'Plant Status',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 10),
+          _buildInfoRow(Icons.thermostat_outlined, 'Temperature', temperature),
+          _buildInfoRow(Icons.opacity, 'Humidity', humidity),
+          _buildInfoRow(Icons.water_drop, 'Soil Moisture', soilMoisture),
+          _buildInfoRow(Icons.wb_cloudy, "Nitrogen", nitrogen),
+          _buildInfoRow(Icons.science, "Phosphorous", phosphorous),
+          _buildInfoRow(Icons.local_fire_department, "Potassium", potassium),
+          // Add more rows for other values
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoRow(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon),
+          SizedBox(width: 10),
+          Text('$label: ', style: TextStyle(fontWeight: FontWeight.bold)),
+          Text(value),
+        ],
+      ),
+    );
+  }
 }

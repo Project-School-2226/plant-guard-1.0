@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
         title: selectedIndex == 0
             ? ShaderMask(
                 shaderCallback: (bounds) => LinearGradient(
