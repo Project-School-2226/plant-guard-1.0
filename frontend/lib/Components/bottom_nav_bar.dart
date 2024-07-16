@@ -28,20 +28,12 @@ class BottomNavBar extends StatelessWidget {
               text: 'Dashboard',
             ),
             GButton(
-              icon: Icons.chat,
-              text: 'Chat',
+              icon: Icons.assessment,
+              text: 'Insights',
             ),
             GButton(
-              icon: Icons.settings,
-              text: 'Settings',
-            ),
-            GButton(
-              icon: Icons.person,
-              text: 'Profile',
-            ),
-            GButton(
-            icon: Icons.info,
-            text: 'Trivia',
+              icon: Icons.info,
+              text: 'Trivia',
             )
           ],
           // Your GNav items here

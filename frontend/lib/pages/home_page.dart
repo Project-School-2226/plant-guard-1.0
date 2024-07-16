@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant_guard/pages/chat_page.dart';
 import 'package:plant_guard/pages/dashboard.dart';
+import 'package:plant_guard/pages/detailed_insights_page.dart';
 import 'package:plant_guard/pages/profile_page.dart';
 import 'package:plant_guard/pages/settings_page.dart';
 import 'package:plant_guard/pages/plantstrivia.dart';
@@ -15,12 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
   final PageController pageController = PageController();
-  final List<String> pageTitles = [
-    'PlantGuard',
-    'Settings',
-    'Profile',
-    'Trivia'
-  ];
+  final List<String> pageTitles = ['PlantGuard', 'Insights', 'Trivia'];
 
   @override
   void dispose() {
@@ -78,9 +74,8 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           // Your page widgets here
           const Dashboard(),
-          const SettingsPage(),
-          const ProfilePage(),
-          PlantsTrivia(),
+          const DetailedInsights(),
+          const PlantsTrivia(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -93,8 +88,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.dashboard), label: 'Dashboard'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.settings), label: 'Settings'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+              icon: Icon(Icons.assessment), label: 'Insights'),
           BottomNavigationBarItem(icon: Icon(Icons.info), label: 'Trivia'),
         ],
       ),

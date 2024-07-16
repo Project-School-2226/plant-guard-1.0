@@ -32,7 +32,7 @@ class _ChatScreenState extends State<ChatScreen> {
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
         var res = await http.post(
-            Uri.parse("https://3e74-183-82-97-138.ngrok-free.app/query"),
+            Uri.parse("https://c7d0-183-82-97-138.ngrok-free.app/query"),
             headers: {
               "Content-Type": "application/json",
             },
