@@ -92,7 +92,6 @@ void _filterPlants() {
   void showPlantDetails(BuildContext context, String name, String details) {
     showDialog(
       context: context,
-      barrierColor: Colors.black.withOpacity(0), // Makes the overlay outside the dialog translucent
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: Colors.transparent, // Makes the dialog background transparent
@@ -104,14 +103,6 @@ void _filterPlants() {
                   border: Border.all(color: Colors.black),
                   color: const Color.fromARGB(31, 36, 35, 35).withOpacity(0.7), // Semi-transparent white background of the dialog
                   borderRadius: BorderRadius.circular(15),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5), // Shadow color with some transparency
-                      spreadRadius: 2, // Extent of shadow spread
-                      blurRadius: 15, // How blurry the shadow should be
-                      offset: const Offset(0, 3), // Horizontal and vertical offset of shadow
-                    ),
-                  ],
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min, // Makes the container wrap its content
