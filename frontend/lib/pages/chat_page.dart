@@ -220,31 +220,22 @@ class _ChatScreenState extends State<ChatScreen> {
                           if (MediaQuery.of(context).viewInsets.bottom ==
                               0) // Checks if the keyboard is closed
                             Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "PlantGuard ChatBot",
-                                style: TextStyle(
-                                    fontSize: 26,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.green.shade800),
-                              ),
-                            ),
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  "Quick Chat",
+                                  style: const TextStyle(fontSize: 28),
+                                )),
                           const SizedBox(
                             height: 8,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Quick Chat",
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
-                            ),
-                          ),
                           ...selectedQuickChatOptions.map((option) {
                             return ElevatedButton(
-                              onPressed: () => sendQuickChatMessage(option),
-                              child: Text(option),
-                            );
+                                onPressed: () => sendQuickChatMessage(option),
+                                child: Text(option,
+                                    style: const TextStyle(fontSize: 16)),
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: Colors.green.shade300,
+                                    foregroundColor: Colors.grey.shade800));
                           }).toList(),
                         ],
                       ))),
