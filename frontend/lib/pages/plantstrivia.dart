@@ -108,24 +108,30 @@ class _PlantsTriviaState extends State<PlantsTrivia> {
               Colors.transparent, // Makes the dialog background transparent
           content: ClipRect(
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Apply blur effect
+              filter:
+                  ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Apply blur effect
               child: Container(
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.black),
-                  color: const Color.fromARGB(31, 36, 35, 35).withOpacity(0.7), // Semi-transparent white background of the dialog
+                  color: const Color.fromARGB(31, 36, 35, 35).withOpacity(
+                      0.7), // Semi-transparent white background of the dialog
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min, // Makes the container wrap its content
+                  mainAxisSize:
+                      MainAxisSize.min, // Makes the container wrap its content
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(name, style: const TextStyle(fontSize: 24,
-                        color: Colors.white,
-                      )),
+                      child: Text(name,
+                          style: const TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                          )),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(top:9.0, left:16.0, right:16.0, bottom: 16.0),
+                      padding: const EdgeInsets.only(
+                          top: 9.0, left: 16.0, right: 16.0, bottom: 16.0),
                       child: Text(
                         details,
                         style: const TextStyle(
