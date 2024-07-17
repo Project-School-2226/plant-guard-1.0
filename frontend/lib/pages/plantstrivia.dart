@@ -102,59 +102,43 @@ class _PlantsTriviaState extends State<PlantsTrivia> {
   void showPlantDetails(BuildContext context, String name, String details) {
     showDialog(
       context: context,
-      barrierColor: Colors.black
-          .withOpacity(0), // Makes the overlay outside the dialog translucent
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor:
               Colors.transparent, // Makes the dialog background transparent
           content: ClipRect(
-            child: // Apply blur effect
-                Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                      color: const Color.fromARGB(31, 36, 35, 35).withOpacity(
-                          0.7), // Semi-transparent white background of the dialog
-                      borderRadius: BorderRadius.circular(15),
-                      // boxShadow: [
-                      //   BoxShadow(
-                      //     color: Colors.grey.withOpacity(
-                      //         0.5), // Shadow color with some transparency
-                      //     blurRadius: 15, // How blurry the shadow should be
-                      //     offset: const Offset(
-                      //         0, 3), // Horizontal and vertical offset of shadow
-                      //   ),
-                      // ],
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // Apply blur effect
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                  color: const Color.fromARGB(31, 36, 35, 35).withOpacity(0.7), // Semi-transparent white background of the dialog
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min, // Makes the container wrap its content
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(name, style: const TextStyle(fontSize: 24,
+                        color: Colors.white,
+                      )),
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Text(name,
-                                style: const TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                )),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                top: 9.0,
-                                left: 16.0,
-                                right: 16.0,
-                                bottom: 16.0),
-                            child: Text(
-                              details,
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ],
+                    Padding(
+                      padding: const EdgeInsets.only(top:9.0, left:16.0, right:16.0, bottom: 16.0),
+                      child: Text(
+                        details,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.white,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
-                    )),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         );
       },
