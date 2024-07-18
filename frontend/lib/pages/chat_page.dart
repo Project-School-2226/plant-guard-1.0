@@ -92,6 +92,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
         setState(() {
           isTyping = false;
+          isWaitingForResponse = false;
           isBotTyping = false;
           msgs.insert(
               0,
@@ -105,6 +106,7 @@ class _ChatScreenState extends State<ChatScreen> {
       } else {
         setState(() {
           isTyping = false;
+          isWaitingForResponse = false;
           isBotTyping = false; // Hide typing indicator
           msgs.insert(
             0,
@@ -143,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
         var res = await http.post(
-            Uri.parse("https://f328-49-206-32-203.ngrok-free.app/query"),
+            Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
             headers: {
               "Content-Type": "application/json",
             },
@@ -161,7 +163,6 @@ class _ChatScreenState extends State<ChatScreen> {
           setState(() {
             isTyping = false;
             isBotTyping = false;
-            isWaitingForResponse = false;
             isWaitingForResponse = false;
             msgs.insert(
                 0,
@@ -190,6 +191,7 @@ class _ChatScreenState extends State<ChatScreen> {
       // Handle errors (e.g., no internet connection)
       setState(() {
         isTyping = false;
+        isWaitingForResponse = false;
         isBotTyping = false; // Hide typing indicator
         msgs.insert(
           0,
