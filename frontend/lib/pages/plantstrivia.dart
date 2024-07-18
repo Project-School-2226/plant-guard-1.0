@@ -70,6 +70,60 @@ class _PlantsTriviaState extends State<PlantsTrivia> {
       "details":
           "India is one of the largest producers of oilseeds in the world, with major crops including groundnut, mustard, soybean, and sunflower. Ideal growing conditions include temperatures between 20°C to 30°C and moderate rainfall. Oilseeds prefer well-drained sandy loam to clayey soil. The optimal NPK ratio is 20-40-20. The crop cycle varies from 90 to 150 days. Oilseeds are essential for oil production and as a protein source.",
       "imageUrl": "lib/images/oilseeds.jpeg"
+    },
+    {
+      "name": "Tomato",
+      "details":
+          "Tomatoes are a widely grown vegetable crop in India. They thrive in temperatures between 20°C to 25°C and require moderate rainfall. Tomatoes prefer well-drained loamy soil rich in organic matter. The optimal NPK ratio is 100-50-50. The crop cycle lasts around 70-90 days. Tomatoes are used in various culinary dishes and are a rich source of vitamins A and C.",
+      "imageUrl": "lib/images/tomato.jpg"
+    },
+    {
+      "name": "Curry Leaves",
+      "details":
+          "Curry leaves are commonly grown in Indian households and farms for their aromatic leaves, used extensively in cooking. They grow well in temperatures between 20°C to 30°C and require moderate rainfall. Curry leaves prefer well-drained loamy soil. The optimal NPK ratio is 60-40-20. The plant can be harvested multiple times a year. Curry leaves are known for their distinct flavor and numerous health benefits.",
+      "imageUrl": "lib/images/curry_leaves.jpeg"
+    },
+    {
+      "name": "Potato",
+      "details":
+          "Potatoes are a staple crop in India, particularly in states like Uttar Pradesh, West Bengal, and Bihar. They grow well in temperatures between 15°C to 20°C and require moderate rainfall. Potatoes prefer well-drained sandy loam soil. The optimal NPK ratio is 120-60-60. The crop cycle lasts around 90-120 days. Potatoes are a major food source and are used in a wide variety of dishes.",
+      "imageUrl": "lib/images/potato.jpeg"
+    },
+    {
+      "name": "Onion",
+      "details":
+          "Onions are an essential crop in Indian agriculture, used in almost every culinary dish. They thrive in temperatures between 15°C to 25°C and require moderate rainfall. Onions prefer well-drained sandy loam soil. The optimal NPK ratio is 100-50-50. The crop cycle lasts around 100-150 days. Onions are valued for their flavor and nutritional benefits, particularly their vitamin C content.",
+      "imageUrl": "lib/images/onion.jpeg"
+    },
+    {
+      "name": "Brinjal (Eggplant)",
+      "details":
+          "Brinjal, also known as eggplant, is widely grown in India, particularly in states like Maharashtra, Karnataka, and Andhra Pradesh. It grows well in temperatures between 20°C to 30°C and requires moderate rainfall. Brinjal prefers well-drained loamy soil. The optimal NPK ratio is 100-50-50. The crop cycle lasts around 100-120 days. Brinjal is used in various culinary dishes and is rich in fiber and antioxidants.",
+      "imageUrl": "lib/images/brinjal.jpg"
+    },
+    {
+      "name": "Cabbage",
+      "details":
+          "Cabbage is a popular vegetable crop in India, grown extensively in cooler regions. It thrives in temperatures between 15°C to 20°C and requires moderate rainfall. Cabbage prefers well-drained loamy soil rich in organic matter. The optimal NPK ratio is 120-60-60. The crop cycle lasts around 90-120 days. Cabbage is a rich source of vitamins K and C, and is used in various culinary dishes.",
+      "imageUrl": "lib/images/cabbage.jpg"
+    },
+    {
+      "name": "Carrot",
+      "details":
+          "Carrots are an important root vegetable grown in India, particularly in cooler regions. They thrive in temperatures between 15°C to 20°C and require moderate rainfall. Carrots prefer well-drained sandy loam soil. The optimal NPK ratio is 90-45-45. The crop cycle lasts around 90-120 days. Carrots are valued for their high vitamin A content and are used in salads, soups, and various other dishes.",
+      "imageUrl": "lib/images/carrot.jpg"
+    },
+    {
+      "name": "Chili",
+      "details":
+          "Chilies are a vital spice crop in India, widely grown in states like Andhra Pradesh, Karnataka, and Maharashtra. They thrive in temperatures between 20°C to 30°C and require moderate rainfall. Chilies prefer well-drained loamy soil. The optimal NPK ratio is 120-60-60. The crop cycle lasts around 150-180 days. Chilies are used for their pungency and flavor, and are rich in vitamins A and C.",
+      "imageUrl": "lib/images/chili.jpeg"
+    },
+    {
+      "name": "Spinach",
+      "details":
+          "Spinach is a leafy vegetable widely grown in India, known for its high nutritional value. It thrives in temperatures between 15°C to 25°C and requires moderate rainfall. Spinach prefers well-drained loamy soil rich in organic matter. The optimal NPK ratio is 60-30-30. The crop cycle lasts around 40-60 days. Spinach is a rich source of iron, vitamins A and C, and is used in a variety of dishes.",
+      "imageUrl": "lib/images/spinach.jpg"
     }
   ];
 
