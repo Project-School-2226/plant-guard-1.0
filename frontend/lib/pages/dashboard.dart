@@ -3,11 +3,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
-
   @override
   _DashboardState createState() => _DashboardState();
 }
@@ -27,7 +27,7 @@ class _DashboardState extends State<Dashboard> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://10b3-183-82-97-138.ngrok-free.app/sensors-data/get-from-esp32'));
+          'https://e23b-49-205-121-131.ngrok-free.app/sensors-data/get-from-esp32'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         print(data);
