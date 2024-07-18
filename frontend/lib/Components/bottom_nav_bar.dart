@@ -9,28 +9,35 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GNav(
-        color: Colors.black,
-        activeColor: Colors.black,
-        tabActiveBorder: Border.all(color: Colors.white),
-        tabBackgroundColor: Color.fromARGB(255, 91, 187, 94),
-        mainAxisAlignment: MainAxisAlignment.center,
-        tabBorderRadius: 16,
-        padding: EdgeInsets.symmetric(
-            horizontal: 13, vertical: 14), // Reduced padding
-        gap: 8,
-        onTabChange: (value) => onTabChange!(value),
-        tabs: const [
-          GButton(
-            icon: Icons.home,
-            text: 'Home',
-          ),
-          GButton(
-            icon: Icons.chat,
-            text: 'ChatBot',
-          ),
-        ],
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(), // Optional: for a notch in the middle
+      child: Container(
+        height: 60, // Adjust the height to fit your design
+        child: GNav(
+          backgroundColor: Color.fromARGB(255, 152, 162, 152),
+          color: Colors.black,
+          activeColor: Colors.black,
+          tabActiveBorder: Border.all(color: Colors.white),
+          tabBackgroundColor: Color(0xFF5ada86),
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          tabBorderRadius: 16,
+          padding: EdgeInsets.symmetric(horizontal: 13, vertical: 14),
+          tabs: const [
+            GButton(
+              icon: Icons.dashboard,
+              text: 'Dashboard',
+            ),
+            GButton(
+              icon: Icons.assessment,
+              text: 'Insights',
+            ),
+            GButton(
+              icon: Icons.info,
+              text: 'Trivia',
+            )
+          ],
+          // Your GNav items here
+        ),
       ),
     );
   }

@@ -1,1 +1,3 @@
-/llm/venv
+/backend/llm/venv
+/backend/server/node_modules
+/backend/esp32/libraries

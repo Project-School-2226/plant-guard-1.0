@@ -10,9 +10,9 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Settings'),
+    return const Scaffold(
+      body: Center(
+        child: Text('Settings Page'),
       ),
     );
   }
