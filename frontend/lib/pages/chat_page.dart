@@ -68,6 +68,7 @@ class _ChatScreenState extends State<ChatScreen> {
       msgs.insert(0, Message(true, message));
       isTyping = true;
       isBotTyping = true;
+      isWaitingForResponse = true;
       // Optionally, clear quick chat options if you want them to disappear after sending a message
       hasStartedChatting = true;
       selectedQuickChatOptions.clear();
@@ -76,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
         duration: const Duration(seconds: 1), curve: Curves.easeOut);
     try {
       var res = await http.post(
-          Uri.parse("https://f328-49-206-32-203.ngrok-free.app/query"),
+          Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
           headers: {
             "Content-Type": "application/json",
           },
@@ -115,6 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
     } catch (e) {
       setState(() {
         isTyping = false;
+        isWaitingForResponse = false;
         isBotTyping = false; // Hide typing indicator
         msgs.insert(
           0,
@@ -136,6 +138,7 @@ class _ChatScreenState extends State<ChatScreen> {
           isTyping = true;
           isBotTyping = true;
           hasStartedChatting = true;
+          isWaitingForResponse = true;
         });
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
@@ -158,6 +161,7 @@ class _ChatScreenState extends State<ChatScreen> {
           setState(() {
             isTyping = false;
             isBotTyping = false;
+            isWaitingForResponse = false;
             isWaitingForResponse = false;
             msgs.insert(
                 0,
@@ -330,14 +334,14 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
               ),
               InkWell(
-                onTap: () {
+                onTap: isWaitingForResponse ? null :() {
                   sendMsg();
                 },
                 child: Container(
                   height: 40,
                   width: 40,
                   decoration: BoxDecoration(
-                      color: Colors.green,
+                       color: isWaitingForResponse ? Colors.grey : Colors.green,
                       borderRadius: BorderRadius.circular(30)),
                   child: const Icon(
                     Icons.send,
