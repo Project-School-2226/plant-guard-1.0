@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'package:chat_bubbles/bubbles/bubble_normal.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_guard/Models/message.dart';
 
@@ -28,10 +27,10 @@ class _ChatScreenState extends State<ChatScreen> {
     "How often should I water my plant?",
     "What are the signs of overwatering?",
     "How to deal with pests on plants?",
-    "Best fertilizer for indoor plants?",
     "How much sunlight does my plant need?",
     "When is the best time to repot?",
     "How to prune my plant correctly?",
+    "How to prevent yellow leaves?",
     "What are common plant diseases?",
     "Tips for growing plants in low light?",
     "How to propagate my plant?",
@@ -53,6 +52,7 @@ class _ChatScreenState extends State<ChatScreen> {
     "How to care for plants in humid weather?",
     "How to care for plants in dry weather?",
     "How to care for plants in windy weather?",
+
   ];
   List<String> selectedQuickChatOptions = [];
   @override
@@ -76,7 +76,7 @@ class _ChatScreenState extends State<ChatScreen> {
         duration: const Duration(seconds: 1), curve: Curves.easeOut);
     try {
       var res = await http.post(
-          Uri.parse("https://f328-49-206-32-203.ngrok-free.app/query"),
+          Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
           headers: {
             "Content-Type": "application/json",
           },
@@ -140,7 +140,7 @@ class _ChatScreenState extends State<ChatScreen> {
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
         var res = await http.post(
-            Uri.parse("https://f328-49-206-32-203.ngrok-free.app/query"),
+            Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
             headers: {
               "Content-Type": "application/json",
             },
