@@ -14,25 +14,25 @@ class _DetailedInsightsState extends State<DetailedInsights> {
     'Soil Moisture',
     'Nitrogen',
     'Phosphorous',
-    'Potasium',
+    'Potassium',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue[50],
+      backgroundColor: Colors.white,
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: GridView.count(
           crossAxisCount: 1,
-          crossAxisSpacing: 5,
-          mainAxisSpacing: 5,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
           childAspectRatio: 2,
-          children: List.generate(5, (index) {
-            // Assuming 5 attributes for demonstration
+          children: List.generate(attributes.length, (index) {
             return Center(
               // Center to align the container
               child: SizedBox(
-                width: 250, // Adjust the width as needed
+                width: 300, // Adjust the width as needed
                 child: StatCard(attribute: attributes[index]),
               ),
             );
@@ -52,18 +52,18 @@ class StatCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4,
-      color: Color.fromARGB(255, 174, 244, 198),
+      color: Colors.grey[200],
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(attribute, style: TextStyle(fontWeight: FontWeight.bold)),
             const StatLine(label: 'Average', value: '20'),
-            StatLine(label: 'Highest', value: '30'),
-            StatLine(label: 'Lowest', value: '10'),
-            StatLine(label: 'Ideal', value: '22-25'),
-            StatLine(label: 'Current', value: '21', isCurrent: true),
+            const StatLine(label: 'Highest', value: '30'),
+            const StatLine(label: 'Lowest', value: '10'),
+            const StatLine(label: 'Ideal', value: '22-25'),
+            const StatLine(label: 'Current', value: '21', isCurrent: true), 
           ],
         ),
       ),
@@ -89,12 +89,8 @@ class StatLine extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(label,
-            style: TextStyle(
-                color: isCurrent ? Colors.blue : Colors.black,
-                fontWeight: FontWeight.bold)),
-        Text(value,
-            style: TextStyle(
-                fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal)),
+            style: TextStyle(color: isCurrent ? Colors.blue : Colors.black)),
+        Text(value),
       ],
     );
   }
