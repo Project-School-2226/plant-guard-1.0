@@ -1,1 +1,2 @@
-/llm/venv
+/backend/llm/venv
+/backend/server/node_modules

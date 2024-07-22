@@ -1,4 +1,4 @@
-# chat_gpt_chat_app
+# plant_guard
 
 A new Flutter project.
 
