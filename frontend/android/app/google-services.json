@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "950084926594",
+    "project_id": "plant-guard-b4f9a",
+    "storage_bucket": "plant-guard-b4f9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:950084926594:android:a80632594f6934b064489b",
+        "android_client_info": {
+          "package_name": "com.example.plant_guard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg_xeAIW4mRPURm6jawKM9vuusMFAy3Ao"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
