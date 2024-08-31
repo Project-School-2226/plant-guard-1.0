@@ -77,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
         duration: const Duration(seconds: 1), curve: Curves.easeOut);
     try {
       var res = await http.post(
-          Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
+          Uri.parse(dotenv.env['NGROK_URL']!),
           headers: {
             "Content-Type": "application/json",
           },
@@ -145,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen> {
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
         var res = await http.post(
-            Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
+            Uri.parse(dotenv.env['NGROK_URL']!),
             headers: {
               "Content-Type": "application/json",
             },
