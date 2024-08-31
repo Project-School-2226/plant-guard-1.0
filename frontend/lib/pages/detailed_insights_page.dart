@@ -13,24 +13,24 @@ class DetailedInsights extends StatefulWidget {
 class _DetailedInsightsState extends State<DetailedInsights> {
   final Map<String, Map<String, String>> attributeData = {
     'Temperature': {
-      'Average': '20',
-      'Highest': '30',
-      'Lowest': '10',
-      'Ideal': '22-25',
+      'Average': '0',
+      'Highest': '0',
+      'Lowest': '0',
+      'Ideal': '27-30',
       'Current': '0',
     },
     'Humidity': {
-      'Average': '50',
-      'Highest': '70',
-      'Lowest': '30',
-      'Ideal': '40-60',
+      'Average': '0',
+      'Highest': '0',
+      'Lowest': '0',
+      'Ideal': '70-80',
       'Current': '0',
     },
     'Soil Moisture': {
-      'Average': '40',
-      'Highest': '60',
-      'Lowest': '20',
-      'Ideal': '30-50',
+      'Average': '0',
+      'Highest': '0',
+      'Lowest': '0',
+      'Ideal': '60-100',
       'Current': '0',
     },
   };
@@ -42,20 +42,45 @@ class _DetailedInsightsState extends State<DetailedInsights> {
 
   Future<void> fetchData() async {
     try {
-      final response = await http.get(Uri.parse(
+      final response1 = await http.get(Uri.parse(
           'https://fffe-2409-408c-2cc1-b8d1-5f7-9c9c-99c5-c33d.ngrok-free.app/sensors-data/get-from-esp32'));
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        print(data);
+      final response2 = await http.get(Uri.parse(
+          'https://fffe-2409-408c-2cc1-b8d1-5f7-9c9c-99c5-c33d.ngrok-free.app/sensors-data/plant-insights'));
+      if (response1.statusCode == 200 && response2.statusCode == 200) {
+        final data1 = jsonDecode(response1.body);
+        final data2 = jsonDecode(response2.body);
+        print(data1);
+        print(data2);
         setState(() {
           attributeData['Temperature']?['Current'] =
-              double.parse(data['temperature'].toString()).toStringAsFixed(3);
+              double.parse(data1['temperature'].toString()).toStringAsFixed(3);
           attributeData['Humidity']?['Current'] =
-              double.parse(data['humidity'].toString()).toStringAsFixed(3);
+              double.parse(data1['humidity'].toString()).toStringAsFixed(3);
           attributeData['Soil Moisture']?['Current'] =
-              data['soilMoisture'].toString(); // Assuming you have this field
+              data1['soilMoisture'].toString(); // Assuming you have this field
+          attributeData['Temperature']?['Average'] =
+              double.parse(data2['avg_temperature'].toString())
+                  .toStringAsFixed(3);
+          attributeData['Temperature']?['Highest'] =
+              data2['maxTemperature'].toString();
+          attributeData['Temperature']?['Lowest'] =
+              data2['minTemperature'].toString();
+
+          attributeData['Humidity']?['Average'] =
+              double.parse(data2['avg_humidity'].toString()).toStringAsFixed(3);
+          attributeData['Humidity']?['Highest'] =
+              data2['maxHumidity'].toString();
+          attributeData['Humidity']?['Lowest'] =
+              data2['minhumidity'].toString();
+
+          attributeData['Soil Moisture']?['Average'] =
+              double.parse(data2['avg_soilMoisture'].toString())
+                  .toStringAsFixed(3);
+          attributeData['Soil Moisture']?['Highest'] =
+              data2['maxSoilMoisture'].toString();
+          attributeData['Soil Moisture']?['Lowest'] =
+              data2['minSoilMoisture'].toString();
         });
-        // Save data to SharedPreferences
       }
     } catch (e) {
       print(e);
@@ -100,14 +125,15 @@ class StatCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 4,
+      elevation: 3,
       color: Color.fromARGB(255, 174, 244, 198),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Text(attribute, style: TextStyle(fontWeight: FontWeight.bold)),
+            Text(attribute,
+                style: TextStyle(fontWeight: FontWeight.w900, fontSize: 16)),
             StatLine(label: 'Average', value: values['Average'] ?? 'N/A'),
             StatLine(label: 'Highest', value: values['Highest'] ?? 'N/A'),
             StatLine(label: 'Lowest', value: values['Lowest'] ?? 'N/A'),
@@ -140,11 +166,12 @@ class StatLine extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(label),
+        Text(label, style: TextStyle(fontWeight: FontWeight.w700)),
         Text(
           value,
           style: TextStyle(
-            fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+            fontWeight: isCurrent ? FontWeight.bold : FontWeight.w500,
+            fontSize: 14,
             color: isCurrent ? Colors.blue : Colors.black,
           ),
         ),

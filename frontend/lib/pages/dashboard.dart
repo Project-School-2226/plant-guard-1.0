@@ -123,8 +123,8 @@ class DashboardTile extends StatelessWidget {
         children: [
           Icon(icon),
           SizedBox(width: 10),
-          Text('$label: ', style: TextStyle(fontWeight: FontWeight.bold)),
-          Text(value),
+          Text('$label:  ', style: TextStyle(fontWeight: FontWeight.w800)),
+          Text(value, style: TextStyle(fontSize: 16)),
         ],
       ),
     );

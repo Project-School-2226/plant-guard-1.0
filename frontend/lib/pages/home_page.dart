@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_guard/pages/chat_page.dart';
 import 'package:plant_guard/pages/dashboard.dart';
 import 'package:plant_guard/pages/detailed_insights_page.dart';
-import 'package:plant_guard/pages/profile_page.dart';
-import 'package:plant_guard/pages/settings_page.dart';
+
 import 'package:plant_guard/pages/plantstrivia.dart';
 
 class HomePage extends StatefulWidget {

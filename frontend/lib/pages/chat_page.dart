@@ -27,7 +27,7 @@ class _ChatScreenState extends State<ChatScreen> {
   bool isBotTyping = false;
   bool hasStartedChatting = false; // Step 1: Add a boolean state variable
   bool isWaitingForResponse = false; // Step 1: State variable
-  int ?v;
+  int? v;
   List<String> quickChatOptions = [
     "How often should I water my plant?",
     "What are the signs of overwatering?",
@@ -87,16 +87,22 @@ class _ChatScreenState extends State<ChatScreen> {
     selectedQuickChatOptions = quickChatOptions.take(3).toList();
     setv();
   }
-  void setv() async{
-    int a=await _chatService.getMessageCount();
+
+  void setv() async {
+    int a = await _chatService.getMessageCount();
     setState(() {
-      v=a;
+      v = a;
     });
   }
+
   void sendQuickChatMessage(String message) async {
     // scrollController.animateTo(0.0,
     //     duration: const Duration(seconds: 1), curve: Curves.easeOut);
-    sendMessage(true,message);
+    sendMessage(true, message);
+    setState(() {
+      setv();
+    });
+    isTyping = true;
     try {
       var res = await http.post(
           Uri.parse(
@@ -113,6 +119,7 @@ class _ChatScreenState extends State<ChatScreen> {
         print(
             responseText); // For debugging, you can print the extracted response
 
+        sendMessage(false, responseText);
         setState(() {
           isTyping = false;
           isBotTyping = false;
@@ -125,12 +132,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   timestamp: Timestamp
                       .now())); // Use the extracted "response" value here
         });
-        sendMessage(false, responseText);
       } else {
         setState(() {
           isTyping = false;
           isBotTyping = false; // Hide typing indicator
-          setv();          msgs.insert(
+          setv();
+          msgs.insert(
             0,
             Message(
                 isSender: false,
@@ -138,20 +145,20 @@ class _ChatScreenState extends State<ChatScreen> {
                 timestamp: Timestamp.now()),
           );
         });
-          sendMessage(
-              false, "Oops! Something went wrong. Please try again later.");
+        sendMessage(
+            false, "Oops! Something went wrong. Please try again later.");
       }
     } catch (e) {
       setState(() {
         isTyping = false;
         isBotTyping = false; // Hide typing indicator
-        setv();        msgs.insert(
+        setv();
+        msgs.insert(
           0,
           Message(
               isSender: false,
               message: "Oops! Something went wrong. Please try again later.",
               timestamp: Timestamp.now()),
-              
         );
         sendMessage(
             false, "Oops! Something went wrong. Please try again later.");
@@ -166,6 +173,7 @@ class _ChatScreenState extends State<ChatScreen> {
     _messageController.clear();
     try {
       if (text.isNotEmpty) {
+        sendMessage(true, text);
         setState(() {
           msgs.insert(
               0,
@@ -174,8 +182,8 @@ class _ChatScreenState extends State<ChatScreen> {
           isTyping = true;
           isBotTyping = true;
           hasStartedChatting = true;
-          setv();        });
-        sendMessage(true, text);
+          setv();
+        });
         var res = await http.post(
             Uri.parse(
                 "https://84f6-2409-408c-1c44-1809-2f84-fde2-a502-32bb.ngrok-free.app/query"),
@@ -198,7 +206,8 @@ class _ChatScreenState extends State<ChatScreen> {
             isTyping = false;
             isBotTyping = false;
             isWaitingForResponse = false;
-            setv();            msgs.insert(
+            setv();
+            msgs.insert(
                 0,
                 Message(
                     isSender: false,
@@ -215,7 +224,8 @@ class _ChatScreenState extends State<ChatScreen> {
             isTyping = false;
             isBotTyping = false; // Hide typing indicator
             isWaitingForResponse = false;
-            setv();            msgs.insert(
+            setv();
+            msgs.insert(
               0,
               Message(
                   isSender: false,
@@ -234,7 +244,8 @@ class _ChatScreenState extends State<ChatScreen> {
       setState(() {
         isTyping = false;
         isBotTyping = false; // Hide typing indicator
-        setv();        msgs.insert(
+        setv();
+        msgs.insert(
           0,
           Message(
               isSender: false,
@@ -247,45 +258,29 @@ class _ChatScreenState extends State<ChatScreen> {
       print("Succefully error!!!!!");
     }
   }
+
   void myFunction() {
-  print(v);
-  print("siuu"); // This will print "Hello, world!" to the console
-}
+    print(v);
+    print("siuu"); // This will print "Hello, world!" to the console
+  }
+
   @override
   Widget build(BuildContext context) {
-        myFunction();
+    myFunction();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
         leading: BackButton(
           color: Colors.green.shade400,
         ),
-        title: Row(
-          children: <Widget>[
-            Container(
-              width: 40,
-              height: 40,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('lib/images/Maali_AI.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            const SizedBox(width: 8), // spacing between the image and the text
-            const Text("Maali AI"),
-          ],
-      
-        ),
+        title: Title(color: Colors.black, child: Text('Maali AI')),
       ),
       body: Column(
         children: [
           const SizedBox(
             height: 8,
           ),
-          if (v==0)
-          
+          if (v == 0 && !hasStartedChatting)
             Expanded(
               child: SingleChildScrollView(
                   reverse: true,
@@ -293,7 +288,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment
+                            .center, // Center the children horizontally
                         children: [
                           if (MediaQuery.of(context).viewInsets.bottom ==
                               0) // Checks if the keyboard is closed
@@ -316,81 +313,83 @@ class _ChatScreenState extends State<ChatScreen> {
                                           Color.fromARGB(255, 189, 225, 164),
                                       foregroundColor: Colors.grey.shade800),
                                   child: Text(option,
-                                      style: const TextStyle(fontSize: 16))),
+                                      style: const TextStyle(fontSize: 14))),
                             );
                           }).toList(),
                         ],
                       ))),
             ),
-            if(v!=0)
-          Expanded(
-            child: StreamBuilder<List<Message>>(
-              stream: _chatService.getMessages(),
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Message>> snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                }
-                switch (snapshot.connectionState) {
-                  case ConnectionState.waiting:
-                    return Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          CircularProgressIndicator(
-                            color: Colors.green,
-                          ),
-                          SizedBox(
-                              height:
-                                  20), // Add some spacing between the CircularProgressIndicator and the Text
-                          Text('To plant is to believe in tomorrow.'),
-                        ],
-                      ),
-                    );
-                  default:
-                    return ListView.builder(
-                      controller: scrollController,
-                      itemCount: snapshot.data?.length ?? 0,
-                      shrinkWrap: true,
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4),
-                          child: isTyping && index == 0
-                              ? Column(
-                                  children: [
-                                    BubbleNormal(
-                                      text: snapshot.data?[0].message ?? '',
-                                      isSender: true,
-                                      color: Colors.blue.shade100,
-                                    ),
-                                    const Padding(
-                                      padding:
-                                          EdgeInsets.only(left: 16, top: 4),
-                                      child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child:
-                                              Text("Generating Response...")),
-                                    )
-                                  ],
-                                )
-                              : BubbleNormal(
-                                  text: snapshot.data?[index].message ?? '',
-                                  isSender:
-                                      snapshot.data?[index].isSender ?? false,
-                                  color: snapshot.data?[index].isSender ?? false
-                                      ? Colors.blue.shade100
-                                      : Colors.green.shade200,
-                                  time: snapshot.data?[index].timestamp.toDate(),
-                                ),
-                        );
-                        // }
-                      },
-                    );
-                }
-              },
+          if (v != 0)
+            Expanded(
+              child: StreamBuilder<List<Message>>(
+                stream: _chatService.getMessages(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Message>> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }
+                  switch (snapshot.connectionState) {
+                    case ConnectionState.waiting:
+                      return Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            CircularProgressIndicator(
+                              color: Colors.green,
+                            ),
+                            SizedBox(
+                                height:
+                                    20), // Add some spacing between the CircularProgressIndicator and the Text
+                            Text('To plant is to believe in tomorrow.'),
+                          ],
+                        ),
+                      );
+                    default:
+                      return ListView.builder(
+                        controller: scrollController,
+                        itemCount: snapshot.data?.length ?? 0,
+                        shrinkWrap: true,
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4),
+                            child: isTyping && index == 0
+                                ? Column(
+                                    children: [
+                                      BubbleNormal(
+                                        text: snapshot.data?[0].message ?? '',
+                                        isSender: true,
+                                        color: Colors.blue.shade100,
+                                      ),
+                                      const Padding(
+                                        padding:
+                                            EdgeInsets.only(left: 16, top: 4),
+                                        child: Align(
+                                            alignment: Alignment.centerLeft,
+                                            child:
+                                                Text("Generating Response...")),
+                                      )
+                                    ],
+                                  )
+                                : BubbleNormal(
+                                    text: snapshot.data?[index].message ?? '',
+                                    isSender:
+                                        snapshot.data?[index].isSender ?? false,
+                                    color:
+                                        snapshot.data?[index].isSender ?? false
+                                            ? Colors.blue.shade100
+                                            : Colors.green.shade200,
+                                    time: snapshot.data?[index].timestamp
+                                        .toDate(),
+                                  ),
+                          );
+                          // }
+                        },
+                      );
+                  }
+                },
+              ),
             ),
-          ),
           Row(
             children: [
               Flexible(
