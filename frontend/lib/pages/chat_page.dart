@@ -52,7 +52,6 @@ class _ChatScreenState extends State<ChatScreen> {
     "How to care for plants in humid weather?",
     "How to care for plants in dry weather?",
     "How to care for plants in windy weather?",
-
   ];
   List<String> selectedQuickChatOptions = [];
   @override
@@ -76,7 +75,8 @@ class _ChatScreenState extends State<ChatScreen> {
         duration: const Duration(seconds: 1), curve: Curves.easeOut);
     try {
       var res = await http.post(
-          Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
+          Uri.parse(
+              "https://84f6-2409-408c-1c44-1809-2f84-fde2-a502-32bb.ngrok-free.app/query"),
           headers: {
             "Content-Type": "application/json",
           },
@@ -140,7 +140,8 @@ class _ChatScreenState extends State<ChatScreen> {
         scrollController.animateTo(0.0,
             duration: const Duration(seconds: 1), curve: Curves.easeOut);
         var res = await http.post(
-            Uri.parse("https://a938-183-82-97-138.ngrok-free.app/query"),
+            Uri.parse(
+                "https://84f6-2409-408c-1c44-1809-2f84-fde2-a502-32bb.ngrok-free.app/query"),
             headers: {
               "Content-Type": "application/json",
             },

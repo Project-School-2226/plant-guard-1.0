@@ -16,7 +16,6 @@ class _DashboardState extends State<Dashboard> {
   String temperature = "0.0";
   String humidity = "0.0";
   String soilMoisture = "0.0";
-  Map<String, String> npkValues = {'N': "0.0", 'P': "0.0", 'K': "0.0"};
 
   @override
   void initState() {
@@ -27,20 +26,17 @@ class _DashboardState extends State<Dashboard> {
   Future<void> fetchData() async {
     try {
       final response = await http.get(Uri.parse(
-          'https://e23b-49-205-121-131.ngrok-free.app/sensors-data/get-from-esp32'));
+          'https://fffe-2409-408c-2cc1-b8d1-5f7-9c9c-99c5-c33d.ngrok-free.app/sensors-data/get-from-esp32'));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         print(data);
         setState(() {
-          temperature = data['temperature'].toString();
-          humidity = data['humidity'].toString();
+          temperature =
+              double.parse(data['temperature'].toString()).toStringAsFixed(3);
+          humidity =
+              double.parse(data['humidity'].toString()).toStringAsFixed(3);
           soilMoisture =
               data['soilMoisture'].toString(); // Assuming you have this field
-          npkValues = {
-            'N': data['N'].toString(),
-            'P': data['P'].toString(),
-            'K': data['K'].toString(),
-          };
         });
         // Save data to SharedPreferences
       }
@@ -63,9 +59,6 @@ class _DashboardState extends State<Dashboard> {
                   temperature: temperature,
                   humidity: humidity,
                   soilMoisture: soilMoisture,
-                  nitrogen: npkValues['N']!,
-                  phosphorous: npkValues['P']!,
-                  potassium: npkValues['K']!,
                 ),
               ],
             ),
@@ -78,9 +71,6 @@ class DashboardTile extends StatelessWidget {
   final String temperature;
   final String humidity;
   final String soilMoisture;
-  final String nitrogen;
-  final String phosphorous;
-  final String potassium;
 
   // Add more parameters as needed
 
@@ -89,9 +79,7 @@ class DashboardTile extends StatelessWidget {
     required this.temperature,
     required this.humidity,
     required this.soilMoisture,
-    required this.nitrogen,
-    required this.phosphorous,
-    required this.potassium,
+
     // Initialize other parameters here
   }) : super(key: key);
 
@@ -122,9 +110,6 @@ class DashboardTile extends StatelessWidget {
           _buildInfoRow(Icons.thermostat_outlined, 'Temperature', temperature),
           _buildInfoRow(Icons.opacity, 'Humidity', humidity),
           _buildInfoRow(Icons.water_drop, 'Soil Moisture', soilMoisture),
-          _buildInfoRow(Icons.wb_cloudy, "Nitrogen", nitrogen),
-          _buildInfoRow(Icons.science, "Phosphorous", phosphorous),
-          _buildInfoRow(Icons.local_fire_department, "Potassium", potassium),
           // Add more rows for other values
         ],
       ),
