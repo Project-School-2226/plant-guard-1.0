@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 //hello updated updared
 import 'dart:convert';
-import 'package:chat_bubbles/bubbles/bubble_normal.dart';
+// import 'package:chat_bubbles/bubbles/bubble_normal.dart';
+import 'package:plant_guard/Components/bubble_normie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:plant_guard/Models/message.dart';
 import 'package:plant_guard/services/chat_services.dart';
 
@@ -25,9 +27,8 @@ class _ChatScreenState extends State<ChatScreen> {
   bool isBotTyping = false;
   bool hasStartedChatting = false; // Step 1: Add a boolean state variable
   bool isWaitingForResponse = false; // Step 1: State variable
-
+  int ?v;
   List<String> quickChatOptions = [
-    "Ideal conditions for my plant?",
     "How often should I water my plant?",
     "What are the signs of overwatering?",
     "How to deal with pests on plants?",
@@ -46,7 +47,6 @@ class _ChatScreenState extends State<ChatScreen> {
     "How to take care of my plants in summer?",
     "How to take care of my plants in spring?",
     "How to take care of my plants in winter?",
-    "How to take care of my plants in fall?",
     "How to take care of my plants in autumn?",
     "How to take care of my plants in rainy season?",
     "How to take care of my plants in dry season?",
@@ -66,13 +66,17 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  void sendMessage(isSender, message) async {
+  Future<void> sendMessage(isSender, message) async {
     // final message = _messageController.text;
     if (message.isNotEmpty) {
+      print("before if");
       await _chatService.sendMessage(isSender, message);
-      _messageController.clear();
+      print("after if");
+      // _messageController.clear();
+    } else {
+      print("empty message ra bhai");
     }
-    scrollDown();
+    // scrollDown();
   }
 
   List<String> selectedQuickChatOptions = [];
@@ -81,30 +85,22 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
     quickChatOptions.shuffle();
     selectedQuickChatOptions = quickChatOptions.take(3).toList();
+    setv();
   }
-
-  void sendQuickChatMessage(String message) async {
+  void setv() async{
+    int a=await _chatService.getMessageCount();
     setState(() {
-      // Assuming you have a method to add a message to your chat
-      msgs.insert(
-          0,
-          Message(
-              isSender: true, message: message, timestamp: Timestamp.now()));
-
-      sendMessage(true, message);
-      isTyping = true;
-      isBotTyping = true;
-
-      // Optionally, clear quick chat options if you want them to disappear after sending a message
-      hasStartedChatting = true;
-      selectedQuickChatOptions.clear();
+      v=a;
     });
-    scrollController.animateTo(0.0,
-        duration: const Duration(seconds: 1), curve: Curves.easeOut);
+  }
+  void sendQuickChatMessage(String message) async {
+    // scrollController.animateTo(0.0,
+    //     duration: const Duration(seconds: 1), curve: Curves.easeOut);
+    sendMessage(true,message);
     try {
       var res = await http.post(
           Uri.parse(
-              "https://79b5-2406-b400-d5-f637-e800-11c5-4bb2-27e3.ngrok-free.app/query"),
+              "https://84f6-2409-408c-1c44-1809-2f84-fde2-a502-32bb.ngrok-free.app/query"),
           headers: {
             "Content-Type": "application/json",
           },
@@ -120,6 +116,7 @@ class _ChatScreenState extends State<ChatScreen> {
         setState(() {
           isTyping = false;
           isBotTyping = false;
+          setv();
           msgs.insert(
               0,
               Message(
@@ -129,33 +126,32 @@ class _ChatScreenState extends State<ChatScreen> {
                       .now())); // Use the extracted "response" value here
         });
         sendMessage(false, responseText);
-        scrollController.animateTo(0.0,
-            duration: const Duration(seconds: 1), curve: Curves.easeOut);
       } else {
         setState(() {
           isTyping = false;
           isBotTyping = false; // Hide typing indicator
-          msgs.insert(
+          setv();          msgs.insert(
             0,
             Message(
                 isSender: false,
                 message: "Oops! Something went wrong. Please try again later.",
                 timestamp: Timestamp.now()),
           );
+        });
           sendMessage(
               false, "Oops! Something went wrong. Please try again later.");
-        });
       }
     } catch (e) {
       setState(() {
         isTyping = false;
         isBotTyping = false; // Hide typing indicator
-        msgs.insert(
+        setv();        msgs.insert(
           0,
           Message(
               isSender: false,
               message: "Oops! Something went wrong. Please try again later.",
               timestamp: Timestamp.now()),
+              
         );
         sendMessage(
             false, "Oops! Something went wrong. Please try again later.");
@@ -178,13 +174,11 @@ class _ChatScreenState extends State<ChatScreen> {
           isTyping = true;
           isBotTyping = true;
           hasStartedChatting = true;
-        });
+          setv();        });
         sendMessage(true, text);
-        scrollController.animateTo(0.0,
-            duration: const Duration(seconds: 1), curve: Curves.easeOut);
         var res = await http.post(
             Uri.parse(
-                "https://79b5-2406-b400-d5-f637-e800-11c5-4bb2-27e3.ngrok-free.app/query"),
+                "https://84f6-2409-408c-1c44-1809-2f84-fde2-a502-32bb.ngrok-free.app/query"),
             headers: {
               "Content-Type": "application/json",
             },
@@ -193,6 +187,7 @@ class _ChatScreenState extends State<ChatScreen> {
         if (res.statusCode == 200) {
           var responseBody =
               jsonDecode(res.body); // Parse the JSON response body
+          print(res);
           var responseText = responseBody['response']
               .toString(); // Extract the "response" value
 
@@ -203,7 +198,7 @@ class _ChatScreenState extends State<ChatScreen> {
             isTyping = false;
             isBotTyping = false;
             isWaitingForResponse = false;
-            msgs.insert(
+            setv();            msgs.insert(
                 0,
                 Message(
                     isSender: false,
@@ -211,16 +206,16 @@ class _ChatScreenState extends State<ChatScreen> {
                     timestamp: Timestamp
                         .now())); // Use the extracted "response" value here
           });
-          sendMessage(false, responseText);
-
-          scrollController.animateTo(0.0,
-              duration: const Duration(seconds: 1), curve: Curves.easeOut);
+          await sendMessage(false, responseText);
+          print("Dhhaatinam");
+          // scrollController.animateTo(0.0,
+          //     duration: const Duration(seconds: 1), curve: Curves.easeOut);
         } else {
           setState(() {
             isTyping = false;
             isBotTyping = false; // Hide typing indicator
             isWaitingForResponse = false;
-            msgs.insert(
+            setv();            msgs.insert(
               0,
               Message(
                   isSender: false,
@@ -228,9 +223,10 @@ class _ChatScreenState extends State<ChatScreen> {
                       "Oops! Something went wrong. Please try again later.",
                   timestamp: Timestamp.now()),
             );
-            sendMessage(
-                false, "Oops! Something went wrong. Please try again later.");
           });
+          await sendMessage(
+              false, "Oops! Something went wrong. Please try again later.");
+          print("Succefully error!!!");
         }
       }
     } catch (e) {
@@ -238,21 +234,26 @@ class _ChatScreenState extends State<ChatScreen> {
       setState(() {
         isTyping = false;
         isBotTyping = false; // Hide typing indicator
-        msgs.insert(
+        setv();        msgs.insert(
           0,
           Message(
               isSender: false,
               message: "Oops! Something went wrong. Please try again later.",
               timestamp: Timestamp.now()),
         );
-        sendMessage(
-            false, "Oops! Something went wrong. Please try again later.");
       });
+      await sendMessage(
+          false, "Oops! Something went wrong. Please try again later.");
+      print("Succefully error!!!!!");
     }
   }
-
+  void myFunction() {
+  print(v);
+  print("siuu"); // This will print "Hello, world!" to the console
+}
   @override
   Widget build(BuildContext context) {
+        myFunction();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey[200],
@@ -275,6 +276,7 @@ class _ChatScreenState extends State<ChatScreen> {
             const SizedBox(width: 8), // spacing between the image and the text
             const Text("Maali AI"),
           ],
+      
         ),
       ),
       body: Column(
@@ -282,15 +284,16 @@ class _ChatScreenState extends State<ChatScreen> {
           const SizedBox(
             height: 8,
           ),
-          if (msgs.isEmpty && !hasStartedChatting)
-            /*Expanded(
+          if (v==0)
+          
+            Expanded(
               child: SingleChildScrollView(
                   reverse: true,
                   child: Padding(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).viewInsets.bottom),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           if (MediaQuery.of(context).viewInsets.bottom ==
                               0) // Checks if the keyboard is closed
@@ -298,11 +301,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   "Quick Chat",
-                                  style: const TextStyle(fontSize: 28),
+                                  style: const TextStyle(fontSize: 25),
                                 )),
-                          const SizedBox(
-                            height: 8,
-                          ),
                           ...selectedQuickChatOptions.map((option) {
                             return Padding(
                               padding: const EdgeInsets.all(
@@ -312,7 +312,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                     sendQuickChatMessage(option);
                                   },
                                   style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.green.shade300,
+                                      backgroundColor:
+                                          Color.fromARGB(255, 189, 225, 164),
                                       foregroundColor: Colors.grey.shade800),
                                   child: Text(option,
                                       style: const TextStyle(fontSize: 16))),
@@ -320,7 +321,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           }).toList(),
                         ],
                       ))),
-            ),*/
+            ),
+            if(v!=0)
           Expanded(
             child: StreamBuilder<List<Message>>(
               stream: _chatService.getMessages(),
@@ -332,10 +334,17 @@ class _ChatScreenState extends State<ChatScreen> {
                 switch (snapshot.connectionState) {
                   case ConnectionState.waiting:
                     return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator(color: Colors.yellow,),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[
+                          CircularProgressIndicator(
+                            color: Colors.green,
+                          ),
+                          SizedBox(
+                              height:
+                                  20), // Add some spacing between the CircularProgressIndicator and the Text
+                          Text('To plant is to believe in tomorrow.'),
+                        ],
                       ),
                     );
                   default:
@@ -345,48 +354,36 @@ class _ChatScreenState extends State<ChatScreen> {
                       shrinkWrap: true,
                       reverse: true,
                       itemBuilder: (context, index) {
-                        // if (!hasStartedChatting) {
-                          // return ElevatedButton(
-                          //   onPressed: () {
-                          //     setState(() {
-                          //       hasStartedChatting = true;
-                          //     });
-                          //   },
-                            // child: index < selectedQuickChatOptions.length
-                            //     ? Text(selectedQuickChatOptions[index])
-                            //     : null,
-                          // );
-                        // } else {
-                          return Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 4),
-                            child: isTyping && index == 0
-                                ? Column(
-                                    children: [
-                                      BubbleNormal(
-                                        text: snapshot.data?[0].message ?? '',
-                                        isSender: true,
-                                        color: Colors.blue.shade100,
-                                      ),
-                                      const Padding(
-                                        padding:
-                                            EdgeInsets.only(left: 16, top: 4),
-                                        child: Align(
-                                            alignment: Alignment.centerLeft,
-                                            child:
-                                                Text("Generating Response...")),
-                                      )
-                                    ],
-                                  )
-                                : BubbleNormal(
-                                    text: snapshot.data?[index].message ?? '',
-                                    isSender:
-                                        snapshot.data?[index].isSender ?? false,
-                                    color:
-                                        snapshot.data?[index].isSender ?? false
-                                            ? Colors.blue.shade100
-                                            : Colors.green.shade200,
-                                  ),
-                          );
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 4),
+                          child: isTyping && index == 0
+                              ? Column(
+                                  children: [
+                                    BubbleNormal(
+                                      text: snapshot.data?[0].message ?? '',
+                                      isSender: true,
+                                      color: Colors.blue.shade100,
+                                    ),
+                                    const Padding(
+                                      padding:
+                                          EdgeInsets.only(left: 16, top: 4),
+                                      child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child:
+                                              Text("Generating Response...")),
+                                    )
+                                  ],
+                                )
+                              : BubbleNormal(
+                                  text: snapshot.data?[index].message ?? '',
+                                  isSender:
+                                      snapshot.data?[index].isSender ?? false,
+                                  color: snapshot.data?[index].isSender ?? false
+                                      ? Colors.blue.shade100
+                                      : Colors.green.shade200,
+                                  time: snapshot.data?[index].timestamp.toDate(),
+                                ),
+                        );
                         // }
                       },
                     );
@@ -394,52 +391,6 @@ class _ChatScreenState extends State<ChatScreen> {
               },
             ),
           ),
-          /*Expanded(
-            child: ListView.builder(
-                controller: scrollController,
-                itemCount: msgs.length,
-                shrinkWrap: true,
-                reverse: true,
-                itemBuilder: (context, index) {
-                  if (!hasStartedChatting) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          hasStartedChatting = true;
-                        });
-                      },
-                      child: Text(selectedQuickChatOptions[index]),
-                    );
-                  } else {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 4),
-                      child: isTyping && index == 0
-                          ? Column(
-                              children: [
-                                BubbleNormal(
-                                  text: msgs[0].message,
-                                  isSender: true,
-                                  color: Colors.blue.shade100,
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.only(left: 16, top: 4),
-                                  child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text("Generating Response...")),
-                                )
-                              ],
-                            )
-                           : BubbleNormal(
-                              text: msgs[index].message,
-                              isSender: msgs[index].isSender,
-                              color: msgs[index].isSender
-                                  ? Colors.blue.shade100
-                                  : Colors.green.shade200,
-                            ),
-                    );
-                  }
-                }),
-          ),*/
           Row(
             children: [
               Flexible(
@@ -456,10 +407,8 @@ class _ChatScreenState extends State<ChatScreen> {
                         reverse: true,
                         child: ConstrainedBox(
                           constraints: BoxConstraints(
-                            minHeight:
-                                40, 
-                            maxHeight: MediaQuery.of(context).size.height *
-                                0.2,
+                            minHeight: 40,
+                            maxHeight: MediaQuery.of(context).size.height * 0.2,
                           ),
                           child: TextField(
                             controller:
@@ -474,7 +423,6 @@ class _ChatScreenState extends State<ChatScreen> {
                               hintText:
                                   "Enter query ...", // Optional: Adds a placeholder
                             ),
-                            // No need to change other properties unless necessary
                           ),
                         ),
                       ),
