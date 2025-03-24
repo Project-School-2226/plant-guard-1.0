@@ -1,4 +1,4 @@
-package com.example.chat_gpt_chat_app
+package com.example.plant_guard
 
 import io.flutter.embedding.android.FlutterActivity
 

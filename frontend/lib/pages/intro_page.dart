@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, sort_child_properties_last
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:plant_guard/pages/home_page.dart';
 
 class IntroPage extends StatelessWidget {
@@ -50,7 +49,7 @@ class IntroPage extends StatelessWidget {
                   height: 90.0,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [Colors.green, Colors.black],
+                      colors: const [Colors.green, Colors.black],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
